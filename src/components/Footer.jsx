@@ -7,43 +7,42 @@ function Footer() {
   const [isFabOpen, setIsFabOpen] = useState(false);
   
   // =================================================================
-  // ===== LOGIKA BARU COOKIE DENGAN PERILAKU REFRESH DIMULAI SINI =====
+  // ===== LOGIKA COOKIE YANG TELAH DISEMPURNAKAN =====================
   // =================================================================
   
-  // State untuk menampilkan pop-up jika belum ada persetujuan permanen
   const [showCookiePopup, setShowCookiePopup] = useState(false);
-  // State untuk menutup pop-up sementara (akan reset saat refresh)
-  const [isDismissed, setIsDismissed] = useState(false);
-  // State untuk menyimpan pilihan cookie analytics
   const [analyticsConsent, setAnalyticsConsent] = useState(true);
 
-  // useEffect untuk memeriksa localStorage saat komponen pertama kali dimuat
+  // Periksa status persetujuan cookie saat komponen dimuat
   useEffect(() => {
-    const permanentConsent = localStorage.getItem('cookieConsent');
-    
-    // Hanya tampilkan popup jika persetujuan permanen BELUM diberikan
-    if (!permanentConsent) {
+    const consentGiven = localStorage.getItem('cookieConsent');
+    // Hanya tampilkan pop-up jika belum ada persetujuan sama sekali
+    if (!consentGiven) {
       setShowCookiePopup(true);
     }
-  }, []); // Array kosong berarti efek ini hanya berjalan sekali saat mount
+  }, []);
 
-  // Fungsi saat pengguna MENERIMA cookies
+  // Fungsi saat pengguna MENERIMA pilihan cookie
   const handleAcceptCookies = () => {
-    // Simpan persetujuan secara permanen di localStorage
+    // Simpan persetujuan secara permanen
     localStorage.setItem('cookieConsent', 'true');
-    localStorage.setItem('analyticsConsent', analyticsConsent);
-    // Tutup pop-up
-    setIsDismissed(true);
+    localStorage.setItem('analyticsConsent', analyticsConsent.toString());
+    // Sembunyikan pop-up
+    setShowCookiePopup(false);
   };
 
-  // Fungsi saat pengguna MENOLAK cookies
+  // Fungsi saat pengguna MENOLAK cookie opsional
   const handleDeclineCookies = () => {
-    // Hanya tutup pop-up untuk sementara (state akan hilang saat refresh)
-    setIsDismissed(true);
+    // Tetap simpan status persetujuan agar pop-up tidak muncul lagi,
+    // namun nonaktifkan cookie analitik.
+    localStorage.setItem('cookieConsent', 'true');
+    localStorage.setItem('analyticsConsent', 'false');
+    // Sembunyikan pop-up
+    setShowCookiePopup(false);
   };
 
   // ===========================================
-  // ===== LOGIKA BARU UNTUK COOKIE SELESAI =====
+  // ===== AKHIR DARI LOGIKA COOKIE BARU ========
   // ===========================================
 
   const handleShare = async () => {
@@ -55,7 +54,8 @@ function Footer() {
       });
     } catch (error) {
       console.error('Error sharing:', error);
-      alert('Sharing is not supported on this browser.');
+      // Fallback untuk browser yang tidak mendukung Web Share API
+      alert('Fitur berbagi tidak didukung di browser ini. Anda bisa menyalin URL secara manual.');
     }
   };
 
@@ -105,22 +105,21 @@ function Footer() {
       </div>
 
       {/* ================================================= */}
-      {/* ===== KODE COOKIE POP-UP DENGAN LOGIKA BARU ===== */}
+      {/* ===== KODE COOKIE POP-UP YANG DISEMPURNAKAN ===== */}
       {/* ================================================= */}
-      {/* Tampilkan jika showCookiePopup true DAN belum ditutup sementara (isDismissed false) */}
-      {showCookiePopup && !isDismissed && (
+      {showCookiePopup && (
         <div className="cookie-overlay">
           <div className="cookie-popup">
             <h3>Kami Menghargai Privasi Anda</h3>
             <p className="cookie-text">
-              Situs kami menggunakan *cookie* esensial untuk beroperasi. Kami juga ingin menggunakan *cookie* analitik untuk membantu kami meningkatkan pengalaman Anda dengan memahami bagaimana situs ini digunakan.
+              Situs ini menggunakan <strong>cookie</strong> esensial untuk fungsi dasar. Kami juga ingin memakai <strong>cookie</strong> analitik opsional untuk membantu meningkatkan pengalaman Anda dengan memahami bagaimana situs ini digunakan.
             </p>
             <div className="cookie-options">
               <div className="cookie-option">
                 <input type="checkbox" id="necessary" checked disabled />
                 <label htmlFor="necessary">
                   <strong>Necessary Cookies</strong>
-                  <small>Penting untuk fungsionalitas dasar situs.</small>
+                  <small>Penting untuk fungsionalitas inti situs.</small>
                 </label>
               </div>
               <div className="cookie-option">
@@ -132,7 +131,7 @@ function Footer() {
                 />
                 <label htmlFor="analytics">
                   <strong>Analytics Cookies</strong>
-                  <small>Membantu kami menganalisis lalu lintas situs.</small>
+                  <small>Membantu kami menganalisis lalu lintas dan performa situs.</small>
                 </label>
               </div>
             </div>
@@ -148,7 +147,7 @@ function Footer() {
         </div>
       )}
       {/* ======================================= */}
-      {/* ===== KODE COOKIE POP-UP SELESAI ===== */}
+      {/* ===== AKHIR DARI KODE COOKIE POP-UP ===== */}
       {/* ======================================= */}
     </>
   );
