@@ -1,0 +1,21 @@
+/* src/styles/index.css */
+:root {
+  --background-color: #0D1117; /* Warna latar belakang gelap seperti GitHub */
+  --text-color: #C9D1D9; /* Warna teks abu-abu terang */
+  --accent-color: #58A6FF; /* Warna biru cerah untuk aksen */
+  --border-color: #30363D; /* Warna border yang soft */
+  --card-background: #161B22; /* Warna latar untuk kartu/komponen */
+}
+
+body {
+  margin: 0;
+  font-family: 'Fira Code', 'Source Code Pro', monospace; /* Font khas programmer */
+  background-color: var(--background-color);
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  padding: 2rem 1rem;
+}
