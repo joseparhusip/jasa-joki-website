@@ -211,7 +211,7 @@
 
 .footer-column a:hover {
   color: var(--accent-orange);
-  padding-left: 5px;
+  /* padding-left: 5px; <-- Dihapus agar tidak bergeser */
 }
 
 .footer-column p {
@@ -222,9 +222,10 @@
 
 .footer-socials-new {
   display: flex;
-  align-items: center; /* PERBAIKAN: Menyejajarkan ikon secara vertikal */
+  align-items: center; /* Menyejajarkan ikon secara vertikal */
+  justify-content: center; /* ✨ BARU: Menengahkan ikon secara horizontal */
   gap: 1.2rem;
-  margin-top: 1.2rem; /* PERBAIKAN: Memberi jarak yang konsisten */
+  margin-top: 1.2rem; 
 }
 
 .footer-socials-new a {
@@ -325,4 +326,15 @@
 @media (max-width: 480px) {
   .cookie-overlay { padding: 0; align-items: flex-end; }
   .cookie-popup { max-width: 100%; margin: 0; border-radius: 16px 16px 0 0; border-bottom: none; }
+}
+
+/* ✨ BARU: Perbaikan responsif untuk kolom footer di mobile */
+@media (max-width: 768px) {
+  .footer-column {
+    text-align: center; /* Menengahkan teks di setiap kolom */
+  }
+  .footer-column ul {
+    display: inline-block; /* Membuat list tetap rapi */
+    text-align: left; /* Teks di dalam list tetap rata kiri */
+  }
 }
