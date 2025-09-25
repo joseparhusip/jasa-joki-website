@@ -642,3 +642,27 @@ body {
   97% { transform: translate(-3px, -3px); }
   100% { transform: translate(0, 0); }
 }
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    align-items: center; /* pastikan isi rata tengah */
+    text-align: center;
+    gap: 2rem;
+    padding: 3rem 1rem;
+  }
+
+  .hero-content {
+    align-items: center !important; /* override flex-start */
+    text-align: center !important;  /* override left */
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+}
