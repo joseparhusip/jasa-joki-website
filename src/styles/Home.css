@@ -79,10 +79,8 @@ body {
 
 .hero {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 5rem;
   min-height: 90vh;
   padding: 2rem 0;
 }
@@ -521,13 +519,25 @@ body {
 @media (max-width: 992px) {
   .home-container { padding: 0 1.5rem; }
 
-  .hero { 
-    flex-direction: column-reverse;
-    min-height: auto; 
-    gap: 3rem;
+  /* === PERBAIKAN BAGIAN HERO UNTUK MOBILE === */
+  .hero {
+    min-height: auto;
     padding: 4rem 0;
+    /* Menghapus flex-direction dan gap dari sini karena akan diatur di wrapper */
   }
-  .hero-content { align-items: center; text-align: center; }
+  
+  /* Menargetkan wrapper yang benar untuk mengubah arah flex */
+  .hero .section-content-wrapper {
+    flex-direction: column-reverse;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    align-items: center; /* Memastikan konten (judul, subjudul, tombol) rata tengah */
+    text-align: center; /* Memastikan teks rata tengah */
+    max-width: 100%;
+  }
+
   .hero-image-container { max-width: 500px; }
 
   .contact-container { flex-direction: column; padding: 2.5rem; }
@@ -560,6 +570,22 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* === PERBAIKAN LANJUTAN HERO UNTUK LAYAR LEBIH KECIL === */
+  .hero {
+    padding: 3rem 1rem;
+  }
+  .hero .section-content-wrapper {
+    gap: 2rem;
+  }
+  .hero-title {
+    font-size: 2.0rem; /* DIKECILKAN DARI 2.2rem */
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+  /* === AKHIR PERBAIKAN HERO === */
+
   .pricing-grid { 
     grid-template-columns: 1fr; 
     max-width: 400px; 
@@ -602,8 +628,12 @@ body {
 }
 
 @media (max-width: 600px) {
-  .hero-title { font-size: 2.8rem; }
-  .hero-subtitle { font-size: 1.1rem; }
+  .hero-title {
+    font-size: 1.9rem; /* DIKECILKAN DARI 2.8rem (YANG TIDAK LOGIS) AGAR LEBIH KECIL DARI UKURAN 768px */
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
   
   .section-title, .pricing-title, .quick-form-title { font-size: 2.2rem; }
   
@@ -641,28 +671,4 @@ body {
   94% { transform: translate(3px, 3px); }
   97% { transform: translate(-3px, -3px); }
   100% { transform: translate(0, 0); }
-}
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-    align-items: center; /* pastikan isi rata tengah */
-    text-align: center;
-    gap: 2rem;
-    padding: 3rem 1rem;
-  }
-
-  .hero-content {
-    align-items: center !important; /* override flex-start */
-    text-align: center !important;  /* override left */
-    max-width: 100%;
-  }
-
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
-    max-width: 100%;
-  }
 }
