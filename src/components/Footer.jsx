@@ -9,23 +9,36 @@ function Footer() {
   const [analyticsConsent, setAnalyticsConsent] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
 
+  // Logika Cookie: Cek consent saat komponen dimuat
   useEffect(() => {
     const consentGiven = localStorage.getItem('cookieConsent');
+    // Tampilkan pop-up jika belum ada consent
     if (!consentGiven) {
       setShowCookiePopup(true);
+    }
+    // Jika consent sudah ada, ambil nilai analytics
+    const storedAnalytics = localStorage.getItem('analyticsConsent');
+    if (storedAnalytics !== null) {
+      setAnalyticsConsent(storedAnalytics === 'true');
     }
   }, []);
 
   const handleAcceptCookies = () => {
+    // Simpan consent dan preferensi analytics
     localStorage.setItem('cookieConsent', 'true');
     localStorage.setItem('analyticsConsent', analyticsConsent.toString());
     setShowCookiePopup(false);
+    // Tambahkan logika untuk mengaktifkan/memuat script analitik di sini
+    console.log(`Cookie Accepted. Analytics: ${analyticsConsent}`);
   };
 
   const handleDeclineCookies = () => {
+    // Simpan consent, nonaktifkan analytics
+    setAnalyticsConsent(false); // Set state analytics ke false
     localStorage.setItem('cookieConsent', 'true');
     localStorage.setItem('analyticsConsent', 'false');
     setShowCookiePopup(false);
+    console.log('Cookie Declined. Analytics: false');
   };
   
   const handleShare = async () => {
@@ -108,7 +121,6 @@ function Footer() {
             </div>
             <div className="footer-column">
               <h4>Hubungi Kami</h4>
-              {/* PERUBAHAN: Lokasi diubah ke Bandung */}
               <p>Bandung, Jawa Barat, Indonesia</p>
               <p><a href="mailto:kontak@youth-tech.id">kontak@youth-tech.id</a></p>
               <div className="footer-socials-new">
@@ -144,10 +156,33 @@ function Footer() {
             <h3>Kami Menghargai Privasi Anda</h3>
             <p className="cookie-text">Situs ini menggunakan <strong>cookie</strong> esensial untuk fungsi dasar. Kami juga ingin memakai <strong>cookie</strong> analitik opsional untuk membantu meningkatkan pengalaman Anda.</p>
             <div className="cookie-options">
-              <div className="cookie-option"><input type="checkbox" id="necessary" checked disabled /><label htmlFor="necessary"><strong>Necessary Cookies</strong><small>Penting untuk fungsionalitas inti situs.</small></label></div>
-              <div className="cookie-option"><input type="checkbox" id="analytics" checked={analyticsConsent} onChange={(e) => setAnalyticsConsent(e.target.checked)} /><label htmlFor="analytics"><strong>Analytics Cookies</strong><small>Membantu kami menganalisis lalu lintas dan performa situs.</small></label></div>
+              {/* Necessary Cookies (Wajib & Disabled) */}
+              <div className="cookie-option">
+                <input type="checkbox" id="necessary" checked disabled />
+                <label htmlFor="necessary">
+                  <strong>Necessary Cookies</strong>
+                  <small>Penting untuk fungsionalitas inti situs.</small>
+                </label>
+              </div>
+              {/* Analytics Cookies (Opsional & Dapat Diubah) */}
+              <div className="cookie-option">
+                <input 
+                  type="checkbox" 
+                  id="analytics" 
+                  checked={analyticsConsent} 
+                  onChange={(e) => setAnalyticsConsent(e.target.checked)} 
+                />
+                <label htmlFor="analytics">
+                  <strong>Analytics Cookies</strong>
+                  <small>Membantu kami menganalisis lalu lintas dan performa situs.</small>
+                </label>
+              </div>
             </div>
-            <div className="cookie-buttons"><button onClick={handleDeclineCookies} className="cookie-button decline">Decline</button><button onClick={handleAcceptCookies} className="cookie-button accept">Accept</button></div>
+            {/* Tombol Aksi */}
+            <div className="cookie-buttons">
+              <button onClick={handleDeclineCookies} className="cookie-button decline">Decline</button>
+              <button onClick={handleAcceptCookies} className="cookie-button accept">Accept</button>
+            </div>
           </div>
         </div>
       )}
