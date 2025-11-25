@@ -49,7 +49,7 @@ body {
   margin: 0 auto;
 }
 
-/* FIX: Menambahkan scroll-margin-top agar tidak tertutup navbar 90px */
+/* FIX: Menambahkan scroll-margin-top agar tidak tertutup navbar */
 .hero, .services, .portfolio, .why-us, .process, .cta, .testimonials, .contact, .faq-section {
   padding: 4rem 0; 
   border-top: 1px solid var(--border-color);
@@ -297,36 +297,94 @@ body {
   font-size: 1rem;
 }
 
+/* === MODIFIKASI: PORTFOLIO STYLES (UKURAN RAMPING) === */
+.portfolio-slider-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 1rem;
+  padding: 10px 0; /* Padding agar shadow tidak terpotong */
+}
+
 .portfolio-scroller {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1rem 0;
+}
+
+.portfolio-scroller::-webkit-scrollbar {
+  display: none;
 }
 
 .portfolio-track {
   display: flex;
-  gap: 2rem;
-  padding: 1rem 0;
-  animation: marquee 60s linear infinite;
-}
-.portfolio-scroller:hover .portfolio-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(-350px * 3 - 2rem * 3)); }
+  gap: 1.5rem; /* Gap diperkecil dari 2rem menjadi 1.5rem agar lebih hemat tempat */
+  width: max-content;
 }
 
 .portfolio-item {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   border: none;
   background: var(--primary-gradient);
   transition: transform 0.3s ease;
-  width: 350px;
-  min-height: 280px;
+  
+  /* UKURAN AUTO - Menyesuaikan dengan ukuran gambar asli */
+  width: auto;
+  max-width: 450px;
+  height: 260px;     
+  
   flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
+/* Tombol Navigasi */
+.nav-btn {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-size: 1.2rem;
+  z-index: 10;
+}
+
+.nav-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+.placeholder-img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  font-weight: bold;
+  font-size: 1.5rem;
+  background: var(--primary-gradient);
+}
+
 .portfolio-item::before,
 .portfolio-item::after {
   content: '';
@@ -341,22 +399,119 @@ body {
 .portfolio-item:hover { transform: scale(1.05); z-index: 10; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
 .portfolio-item:hover::before { transform: scale(1.1) translate(-10px, 10px); }
 .portfolio-item:hover::after { transform: scale(1.1) translate(10px, -10px); }
+
+/* Agar Gambar Full Cover (Tidak Gepeng) */
 .portfolio-item img,
-.portfolio-image-split {
-  position: relative; z-index: 2; width: 100%; height: 100%; display: block; object-fit: cover;
+.portfolio-image-split img {
+  position: relative; z-index: 2; 
+  width: 100%; 
+  height: 100%; 
+  display: block; 
+  object-fit: cover; 
+  object-position: center top; /* Fokus ke bagian atas gambar */
   transition: opacity 0.4s ease-out;
 }
+
 .portfolio-item:hover img,
-.portfolio-item:hover .portfolio-image-split { opacity: 0.3; }
-.portfolio-image-split { display: flex; height: 100%; }
-.portfolio-image-split img { width: 50%; object-fit: cover; object-position: center; }
+.portfolio-item:hover .portfolio-image-split img { opacity: 0.3; }
+
+.portfolio-image-split { display: flex; height: 100%; width: 100%; }
+.portfolio-image-split img { width: 50%; height: 100%; object-fit: cover; }
+
 .portfolio-overlay {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: none; display: flex; flex-direction: column; justify-content: flex-end;
   padding: 1.5rem; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; z-index: 3;
 }
 .portfolio-item:hover .portfolio-overlay { opacity: 1; transform: translateY(0); }
-.portfolio-overlay h3 { margin: 0; font-size: 1.6rem; color: white; font-weight: bold; }
-.portfolio-overlay p { margin-top: 0.5rem; font-size: 1rem; color: rgba(255, 255, 255, 0.85); }
+.portfolio-overlay h3 { margin: 0; font-size: 1.4rem; color: white; font-weight: bold; }
+.portfolio-overlay p { margin-top: 0.5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); }
+
+/* === MODAL & GALLERY STYLES === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background-color: var(--card-background);
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  position: relative;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.4s ease-out;
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  color: var(--subtitle-color);
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 10;
+}
+.close-modal-btn:hover { color: var(--primary-color); }
+
+.modal-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+.modal-title { font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+.modal-tech { color: var(--subtitle-color); font-weight: 600; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+.modal-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsif */
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.gallery-item {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.gallery-item img { width: 100%; height: auto; display: block; object-fit: cover; }
+.gallery-item:hover { transform: scale(1.02); }
+
+.click-indicator {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 0.5rem 1rem; border-radius: 20px;
+  color: white; font-size: 0.9rem; font-weight: bold;
+  opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 4; pointer-events: none;
+}
+.portfolio-item:hover .click-indicator { opacity: 1; transform: translate(-50%, -60%); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* === END MODAL STYLES === */
 
 .why-us-container {
   display: flex;
@@ -622,6 +777,29 @@ body {
     transform: none; 
   }
   .process-step h3 { margin-top: 0.5rem; }
+  
+  /* MODIFIKASI MOBILE: Modal & Navigasi */
+  .modal-content {
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+  .modal-title { font-size: 1.5rem; }
+  .modal-gallery-grid { grid-template-columns: 1fr; }
+
+  .portfolio-slider-container {
+      position: relative;
+  }
+  .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      width: 35px;
+      height: 35px;
+      font-size: 1rem;
+  }
+  .prev-btn { left: -10px; }
+  .next-btn { right: -10px; }
 }
 
 @media (max-width: 600px) {

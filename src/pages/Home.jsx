@@ -1,25 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // --- REACT ICONS ---
 import { 
   FaEnvelope, FaWhatsapp, FaLinkedin, FaCheckCircle, 
-  FaLaptopCode, FaShoppingCart, FaRocket, FaChevronDown, FaCode
+  FaLaptopCode, FaRocket, FaChevronDown, FaCode,
+  FaChevronLeft, FaChevronRight, FaTimes, FaLayerGroup
 } from 'react-icons/fa';
 
 // --- STYLES ---
 import '../styles/Home.css';
 
-// --- ASSETS ---
+// --- ASSETS UTAMA ---
 import heroImage from '../assets/images/carousel-1.png';
 import imgOrang from '../assets/images/logo/img-orang.png';
 import imgHp from '../assets/images/logo/img-hp.png';
 
-// --- PLACEHOLDERS ---
-const portfolioTrivo = null;
-const portfolioTrivo1 = null;
-const portfolioDashboard = null;
-const portfolioEcommerce = null;
-const imgJeremy = null;
-const imgRandom1 = null;
+// --- ASSETS PORTFOLIO (Sesuai Struktur Folder) ---
+// 1. Mobile Page Images
+import mobile1 from '../assets/images/portfolio/mobile-page/mobile-1.png';
+import mobile2 from '../assets/images/portfolio/mobile-page/mobile-2.png';
+import mobile3 from '../assets/images/portfolio/mobile-page/mobile-3.png';
+import mobile4 from '../assets/images/portfolio/mobile-page/mobile-4.png';
+
+// 2. Toko Online Images
+import toko1 from '../assets/images/portfolio/toko-online/toko-online-1.jpeg';
+import toko2 from '../assets/images/portfolio/toko-online/toko-online-2.jpeg';
+import toko3 from '../assets/images/portfolio/toko-online/toko-online-3.jpeg';
+
+// 3. Website Page (Admin JEC)
+import web1 from '../assets/images/portfolio/website-page/administrator-jec.png';
+import web2 from '../assets/images/portfolio/website-page/administrator-jec-2.png';
+import web3 from '../assets/images/portfolio/website-page/administrator-jec-3.png';
+import web4 from '../assets/images/portfolio/website-page/administrator-jec-4.png';
+
+// Placeholder (Jika gambar belum ada)
+const imgJeremy = null; 
+const imgRandom1 = null; 
 const imgRandom2 = null;
 
 // --- DATA: TESTIMONIAL ---
@@ -44,26 +59,44 @@ const testimonialData = [
   },
 ];
 
-// --- DATA: PORTFOLIO ---
+// --- DATA: PORTFOLIO (UPDATED WITH GALLERY) ---
 const portfolioData = [
   {
-    title: "Website E-commerce Fesyen",
-    tech: "React, Node.js, Express",
-    image: portfolioEcommerce,
-    type: 'single'
-  },
-  {
-    title: "Admin Dashboard & Management",
-    tech: "React, Material UI, Recharts",
-    image: portfolioDashboard,
-    type: 'single'
-  },
-  {
+    id: 1,
     title: "Aplikasi Mobile Trivo",
+    category: "Mobile App",
     tech: "Flutter, Firebase, Figma",
-    image: portfolioTrivo,
-    image2: portfolioTrivo1,
-    type: 'split'
+    description: "Aplikasi mobile yang responsif dengan fitur autentikasi dan manajemen data real-time.",
+    coverImage: mobile1, // Gambar utama yang muncul di card
+    gallery: [mobile1, mobile2, mobile3, mobile4] // Kumpulan gambar untuk detail modal
+  },
+  {
+    id: 2,
+    title: "Website E-commerce Fesyen",
+    category: "Web Development",
+    tech: "React, Node.js, Express, MySQL",
+    description: "Platform jual beli online lengkap dengan fitur keranjang belanja dan payment gateway.",
+    coverImage: toko1,
+    gallery: [toko1, toko2, toko3]
+  },
+  {
+    id: 3,
+    title: "Admin Dashboard System",
+    category: "Web App",
+    tech: "React, Material UI, Recharts",
+    description: "Sistem manajemen admin untuk memantau data user, transaksi, dan laporan bulanan.",
+    coverImage: web1,
+    gallery: [web1, web2, web3, web4]
+  },
+  // Dummy data project tambahan
+  {
+    id: 4,
+    title: "Company Profile Corporate",
+    category: "Web Design",
+    tech: "HTML, CSS, JavaScript",
+    description: "Website profil perusahaan modern untuk meningkatkan branding klien.",
+    coverImage: null, // Placeholder style akan aktif
+    gallery: [] 
   }
 ];
 
@@ -96,6 +129,27 @@ function Home() {
   });
   const [quickFormErrors, setQuickFormErrors] = useState({});
 
+  // --- STATE: PORTFOLIO MODAL ---
+  const [selectedProject, setSelectedProject] = useState(null); // Menyimpan project yang sedang dibuka
+
+  // --- REF UNTUK SCROLL ---
+  const scrollRef = useRef(null);
+
+  // --- FUNGSI SCROLL PORTFOLIO ---
+  const scroll = (direction) => {
+    const { current } = scrollRef;
+    if (current) {
+      // PERUBAHAN: Lebar item (280px) + Gap (1.5rem/24px) = skitar 304-305px.
+      const scrollAmount = 305; 
+      
+      if (direction === 'left') {
+        current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+  };
+
   // --- EFFECT: ANIMATION ON SCROLL ---
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -114,7 +168,7 @@ function Home() {
     };
   }, []);
 
-  // --- HANDLERS ---
+  // --- HANDLERS UTAMA ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -134,7 +188,18 @@ function Home() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // Quick Form Handlers
+  // --- HANDLERS PORTFOLIO MODAL ---
+  const openProjectDetail = (project) => {
+    setSelectedProject(project);
+    document.body.style.overflow = 'hidden'; // Matikan scroll body saat modal buka
+  };
+
+  const closeProjectDetail = () => {
+    setSelectedProject(null);
+    document.body.style.overflow = 'auto'; // Hidupkan scroll body kembali
+  };
+
+  // --- HANDLERS QUICK FORM ---
   const handleQuickInputChange = (e) => {
     const { name, value } = e.target;
     setQuickFormData(prev => ({ ...prev, [name]: value }));
@@ -259,49 +324,93 @@ function Home() {
         </div>
       </section>
 
-      {/* === SECTION: PORTFOLIO === */}
+      {/* === SECTION: PORTFOLIO (MODIFIED WITH MODAL) === */}
       <section id="portfolio" className="portfolio hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Portofolio Proyek Kami</h2>
-          <div className="portfolio-scroller">
-            <div className="portfolio-track">
-              {/* Render Portfolio Loop 1 */}
-              {portfolioData.map((item, index) => (
-                <div className="portfolio-item" key={`item-${index}`}>
-                  {item.type === 'single' && item.image && <img src={item.image} alt={item.title} />}
-                  {item.type === 'split' && (
-                    <div className="portfolio-image-split">
-                      {item.image && <img src={item.image} alt={item.title} />}
-                      {item.image2 && <img src={item.image2} alt={`${item.title} UI`} />}
+          
+          <div className="portfolio-slider-container">
+            {/* Tombol Kiri */}
+            <button className="nav-btn prev-btn" onClick={() => scroll('left')}>
+              <FaChevronLeft />
+            </button>
+
+            {/* Container Scroll */}
+            <div className="portfolio-scroller" ref={scrollRef}>
+              <div className="portfolio-track">
+                
+                {portfolioData.map((item) => (
+                  // Tambahkan onClick ke item untuk memicu Modal
+                  <div 
+                    className="portfolio-item" 
+                    key={item.id}
+                    onClick={() => openProjectDetail(item)}
+                  >
+                    {/* Render Gambar Cover */}
+                    {item.coverImage ? (
+                      <img src={item.coverImage} alt={item.title} />
+                    ) : (
+                      <div className="placeholder-img">Coming Soon</div>
+                    )}
+                    
+                    {/* Indikator Klik */}
+                    <div className="click-indicator">Klik untuk Detail</div>
+
+                    {/* Overlay (Hover State) */}
+                    <div className="portfolio-overlay">
+                      <h3>{item.title}</h3>
+                      <p>{item.tech}</p>
                     </div>
-                  )}
-                  <div className="portfolio-overlay">
-                    <h3>{item.title}</h3>
-                    <p>{item.tech}</p>
                   </div>
-                </div>
-              ))}
-              {/* Render Portfolio Loop 2 (For Marquee Effect) */}
-              {portfolioData.map((item, index) => (
-                <div className="portfolio-item" key={`duplicate-${index}`}>
-                  {item.type === 'single' && item.image && <img src={item.image} alt={item.title} />}
-                  {item.type === 'split' && (
-                    <div className="portfolio-image-split">
-                      {item.image && <img src={item.image} alt={item.title} />}
-                      {item.image2 && <img src={item.image2} alt={`${item.title} UI`} />}
-                    </div>
-                  )}
-                  <div className="portfolio-overlay">
-                    <h3>{item.title}</h3>
-                    <p>{item.tech}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+
+              </div>
             </div>
+
+            {/* Tombol Kanan */}
+            <button className="nav-btn next-btn" onClick={() => scroll('right')}>
+              <FaChevronRight />
+            </button>
           </div>
         </div>
       </section>
       
+      {/* === MODAL POPUP PORTFOLIO === */}
+      {selectedProject && (
+        <div className="modal-overlay" onClick={closeProjectDetail}>
+          {/* stopPropagation agar klik di dalam konten tidak menutup modal */}
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal-btn" onClick={closeProjectDetail}>
+              <FaTimes />
+            </button>
+            
+            <div className="modal-header">
+              <h2 className="modal-title">{selectedProject.title}</h2>
+              <div className="modal-tech">
+                 <FaLayerGroup style={{marginRight: '8px'}}/> {selectedProject.tech}
+              </div>
+              <p style={{marginTop: '1rem', lineHeight: '1.6', color: 'var(--text-color)'}}>
+                {selectedProject.description}
+              </p>
+            </div>
+
+            <h4 style={{color: 'var(--subtitle-color)'}}>Gallery Preview:</h4>
+            <div className="modal-gallery-grid">
+              {selectedProject.gallery && selectedProject.gallery.length > 0 ? (
+                selectedProject.gallery.map((img, index) => (
+                  <div key={index} className="gallery-item">
+                    <img src={img} alt={`Detail ${selectedProject.title} ${index + 1}`} />
+                  </div>
+                ))
+              ) : (
+                <p>Tidak ada gambar tambahan untuk proyek ini.</p>
+              )}
+            </div>
+
+          </div>
+        </div>
+      )}
+
       {/* === SECTION: WHY US === */}
       <section id="why-us" className="why-us hidden-section">
         <div className="section-content-wrapper">
@@ -324,7 +433,7 @@ function Home() {
                   <h4>⚡ Pengerjaan Cepat</h4>
                   <p>Deadline mepet? Tenang, kami siap membantu mengerjakan proyek Anda tepat waktu.</p>
                 </div>
-              </div>
+              </div>  
             </div>
           </div>
         </div>
@@ -422,7 +531,7 @@ function Home() {
           <div className="secondary-pricing-grid">
             {/* ITEM 4: JOKI WEBSITE */}
             <div className="secondary-card" style={{maxWidth: '600px', border: '2px solid var(--primary-color)'}}>
-              <h4>🎓 Joki Website (Tugas/Skripsi)</h4>
+              <h4>xJoki Website (Tugas/Skripsi)</h4>
               <p>Solusi untuk mahasiswa yang butuh bantuan coding tugas akhir atau project kuliah. Include Source Code & Database.</p>
               <h3 style={{color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1rem', fontWeight: 'bold'}}>Rp. 500.000 - 1.500.000</h3>
               <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Konsultasi Tugas</a></div>
