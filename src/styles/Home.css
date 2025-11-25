@@ -1,14 +1,16 @@
 :root {
-  --background-color: #FFFFFF; /* White */
-  --card-background: #FFFFFF; /* White for most cards */
-  --border-color: #DEE2E6; /* Light grey border */
-  --text-color: #212529; /* Dark text */
-  --accent-orange: #EA5329; /* Main accent color (from user: #EA5329) */
-  --subtitle-color: #6C757D; /* Medium grey subtitle */
-  --highlight-bg: #FFF5EE; /* Light orange for highlighted card/section */
-  /* Bubbles Color (Orange Shades) */
-  --bubble-orange-light: rgba(234, 83, 41, 0.2);
-  --bubble-orange-medium: rgba(255, 136, 68, 0.4); 
+  --background-color: #FFFFFF;
+  --card-background: #FFFFFF;
+  --border-color: #DEE2E6;
+  --text-color: #212529;
+  --primary-color: #6d2a27; /* Solid color for text/icons */
+  --primary-gradient: linear-gradient(90deg, #6d2a27, #5f3230); /* Gradient for bg */
+  --subtitle-color: #6C757D;
+  --highlight-bg: #FCF8F8; /* Very light reddish tint */
+  
+  /* Bubbles Color (Reddish-Brown Shades) */
+  --bubble-primary-light: rgba(109, 42, 39, 0.15);
+  --bubble-primary-medium: rgba(95, 50, 48, 0.3); 
 }
 
 * {
@@ -18,10 +20,10 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
-  overflow-x: hidden; /* Mencegah horizontal scroll */
+  overflow-x: hidden;
 }
 
 .hidden-section {
@@ -47,34 +49,32 @@ body {
   margin: 0 auto;
 }
 
+/* FIX: Menambahkan scroll-margin-top agar tidak tertutup navbar 90px */
 .hero, .services, .portfolio, .why-us, .process, .cta, .testimonials, .contact, .faq-section {
   padding: 4rem 0; 
   border-top: 1px solid var(--border-color);
+  scroll-margin-top: 110px;
 }
 
-/* === BAGIAN YANG DIPERBAIKI === */
 .pricing-section, .faq-section, .quick-form-section {
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   width: 100vw;
-  /* HAPUS PADDING DARI SINI */
 }
 
-/* PINDAHKAN PADDING KE WRAPPER DI DALAMNYA */
 .pricing-section .section-content-wrapper,
 .faq-section .section-content-wrapper,
 .quick-form-section .section-content-wrapper {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-/* === AKHIR PERBAIKAN === */
-
 
 .pricing-section {
   padding-top: 6rem;
   padding-bottom: 6rem; 
   background-color: var(--highlight-bg);
   border-bottom: 1px solid var(--border-color);
+  scroll-margin-top: 110px;
 }
 
 .hero {
@@ -83,6 +83,7 @@ body {
   justify-content: center;
   min-height: 90vh;
   padding: 2rem 0;
+  scroll-margin-top: 110px;
 }
 
 .hero-content {
@@ -100,7 +101,7 @@ body {
 }
 
 .hero-title .highlight {
-  color: var(--accent-orange);
+  color: var(--primary-color);
   white-space: nowrap;
 }
 
@@ -113,7 +114,7 @@ body {
 }
 
 .hero-button {
-  background-color: var(--accent-orange);
+  background: var(--primary-gradient);
   color: var(--background-color);
   padding: 0.8rem 2rem;
   border: none;
@@ -127,9 +128,9 @@ body {
 }
 
 .hero-button:hover {
-  opacity: 0.9;
+  opacity: 0.95;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(234, 83, 41, 0.5);
+  box-shadow: 0 0 15px rgba(109, 42, 39, 0.4);
   animation: none; 
 }
 
@@ -159,24 +160,25 @@ body {
   filter: blur(5px);
   animation: float 6s ease-in-out infinite;
 }
-.bubble.b1 { width: 80px; height: 80px; background-color: var(--bubble-orange-light); top: -20px; left: -30px; animation-delay: 0s; }
-.bubble.b2 { width: 40px; height: 40px; background-color: var(--bubble-orange-medium); top: 50%; left: -50px; animation-delay: -2s; }
-.bubble.b3 { width: 120px; height: 120px; background-color: var(--bubble-orange-light); bottom: -40px; right: -50px; animation-delay: -4s; }
-.bubble.b4 { width: 50px; height: 50px; background-color: rgba(234, 83, 41, 0.25); top: 10%; right: -30px; animation-delay: -1s; }
-.bubble.b5 { width: 60px; height: 60px; background-color: rgba(255, 136, 68, 0.3); bottom: 20%; left: -20px; animation-delay: -3s; }
+.bubble.b1 { width: 80px; height: 80px; background-color: var(--bubble-primary-light); top: -20px; left: -30px; animation-delay: 0s; }
+.bubble.b2 { width: 40px; height: 40px; background-color: var(--bubble-primary-medium); top: 50%; left: -50px; animation-delay: -2s; }
+.bubble.b3 { width: 120px; height: 120px; background-color: var(--bubble-primary-light); bottom: -40px; right: -50px; animation-delay: -4s; }
+.bubble.b4 { width: 50px; height: 50px; background-color: var(--bubble-primary-light); top: 10%; right: -30px; animation-delay: -1s; }
+.bubble.b5 { width: 60px; height: 60px; background-color: var(--bubble-primary-medium); bottom: 20%; left: -20px; animation-delay: -3s; }
 
 .quick-form-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
   background-color: var(--highlight-bg);
   border-top: 1px solid var(--border-color);
+  scroll-margin-top: 110px;
 }
 .quick-form-title {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 900;
   margin-bottom: 2.5rem;
-  color: var(--accent-orange);
+  color: var(--primary-color);
 }
 .quick-form-title span {
   display: block;
@@ -229,8 +231,8 @@ body {
 }
 .quick-form-grid input:focus, .quick-form-grid select:focus {
   outline: none;
-  border-color: var(--accent-orange);
-  box-shadow: 0 0 0 3px rgba(234, 83, 41, 0.15);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(109, 42, 39, 0.15);
 }
 .quick-form-grid select {
   -webkit-appearance: none;
@@ -253,7 +255,7 @@ body {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--accent-orange);
+  color: var(--primary-color);
 }
 
 .services-grid, .features-grid {
@@ -274,11 +276,11 @@ body {
 .service-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent-orange);
+  border-color: var(--primary-color);
 }
 .service-icon {
   font-size: 3rem;
-  color: var(--accent-orange);
+  color: var(--primary-color);
   margin-bottom: 1.5rem;
   display: inline-block;
   line-height: 1;
@@ -319,7 +321,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   border: none;
-  background-color: var(--accent-orange);
+  background: var(--primary-gradient);
   transition: transform 0.3s ease;
   width: 350px;
   min-height: 280px;
@@ -411,7 +413,7 @@ body {
 .process-step { text-align: center; position: relative; padding-top: 60px; }
 .process-number {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40px; height: 40px;
-  background-color: var(--accent-orange); color: var(--background-color); border-radius: 50%;
+  background-color: var(--primary-color); color: var(--background-color); border-radius: 50%;
   display: flex; align-items: center; justify-content: center; font-weight: bold;
   font-size: 1.2rem; border: 4px solid var(--background-color);
 }
@@ -433,12 +435,12 @@ body {
 }
 .testimonial-text { font-style: italic; margin-bottom: 1.5rem; color: var(--text-color); line-height: 1.7; }
 .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: auto; }
-.author-image { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-orange); }
+.author-image { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-color); }
 .author-details { text-align: center; }
-.author-details h4 { margin: 0; font-size: 1.1rem; color: var(--accent-orange); }
+.author-details h4 { margin: 0; font-size: 1.1rem; color: var(--primary-color); }
 .author-details p { margin: 0; font-size: 0.9rem; color: var(--subtitle-color); }
 
-.pricing-title { text-align: center; font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent-orange); }
+.pricing-title { text-align: center; font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary-color); }
 .pricing-subtitle { text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: var(--text-color); }
 .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
 .pricing-card {
@@ -449,46 +451,46 @@ body {
 }
 .pricing-card:hover {
   transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  background-color: var(--accent-orange); color: white; border-color: var(--accent-orange);
+  background: var(--primary-gradient); color: white; border-color: transparent;
 }
 .pricing-card:hover .plan-name, .pricing-card:hover .price-new, .pricing-card:hover .plan-features li { color: white; }
 .pricing-card:hover .plan-description, .pricing-card:hover .price-old { color: rgba(255, 255, 255, 0.9); }
 .pricing-card:hover .plan-features li svg { color: white; }
 .card-highlight {
-  border-color: var(--accent-orange); background-color: var(--card-background);
-  box-shadow: 0 0 20px rgba(234, 83, 41, 0.3); transform: scale(1.03); 
+  border-color: var(--primary-color); background-color: var(--card-background);
+  box-shadow: 0 0 20px rgba(109, 42, 39, 0.15); transform: scale(1.03); 
 }
 .card-highlight:hover { transform: translateY(-5px) scale(1.05); }
-.card-highlight .plan-name { color: var(--accent-orange); }
+.card-highlight .plan-name { color: var(--primary-color); }
 .plan-header { margin-bottom: 1.5rem; }
 .plan-name { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: var(--text-color); }
 .plan-description { color: var(--subtitle-color); font-size: 0.9rem; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; }
 .price-old { text-decoration: line-through; color: var(--subtitle-color); font-size: 1rem; margin-top: 1rem; }
-.price-new { font-size: 2.5rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 1rem; }
+.price-new { font-size: 2.5rem; font-weight: 900; color: var(--primary-color); margin-bottom: 1rem; }
 .price-button-container { margin-top: auto; padding-top: 1.5rem; }
 .plan-features { list-style: none; padding: 0; margin-bottom: 2rem; text-align: left; flex-grow: 1; }
 .plan-features li { display: flex; align-items: center; margin-bottom: 0.75rem; color: var(--text-color); }
-.plan-features li svg { color: var(--accent-orange); margin-right: 0.75rem; min-width: 1rem; }
+.plan-features li svg { color: var(--primary-color); margin-right: 0.75rem; min-width: 1rem; }
 .secondary-pricing-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
 .secondary-card {
   background-color: var(--card-background); border: 1px solid var(--border-color); padding: 2rem; border-radius: 8px; width: 100%; max-width: 450px;
   display: flex; flex-direction: column; text-align: left; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; cursor: pointer;
 }
-.secondary-card:hover { background-color: var(--accent-orange); color: white; border-color: var(--accent-orange); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); }
+.secondary-card:hover { background: var(--primary-gradient); color: white; border-color: transparent; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); }
 .secondary-card:hover h4, .secondary-card:hover p { color: white; }
-.secondary-card h4 { font-size: 1.6rem; color: var(--accent-orange); margin-bottom: 0.5rem; transition: color 0.3s ease; }
+.secondary-card h4 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.5rem; transition: color 0.3s ease; }
 .secondary-card p { color: var(--subtitle-color); margin-bottom: 1.5rem; line-height: 1.6; transition: color 0.3s ease; }
 
 .faq-section { background-color: var(--background-color); border-bottom: 1px solid var(--border-color); }
 .faq-container { display: flex; align-items: flex-start; gap: 3rem; }
 .faq-content, .faq-accordion { flex: 1; }
 .faq-content { text-align: left; }
-.faq-title { font-size: 2.2rem; margin-bottom: 1rem; line-height: 1.3; color: var(--accent-orange); }
+.faq-title { font-size: 2.2rem; margin-bottom: 1rem; line-height: 1.3; color: var(--primary-color); }
 .faq-subtitle { line-height: 1.6; color: var(--text-color); }
 .faq-item { background-color: var(--highlight-bg); border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 1rem; cursor: pointer; overflow: hidden; }
 .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; font-weight: 600; }
 .faq-toggle { transition: transform 0.3s ease-in-out; }
-.faq-item.open .faq-toggle { transform: rotate(180deg); color: var(--accent-orange); }
+.faq-item.open .faq-toggle { transform: rotate(180deg); color: var(--primary-color); }
 .faq-answer { max-height: 0; transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; }
 .faq-answer p { padding: 0 1.5rem 1.25rem; color: var(--subtitle-color); line-height: 1.6; margin: 0; text-align: justify; }
 .faq-item.open .faq-answer { max-height: 200px; }
@@ -499,42 +501,39 @@ body {
 .contact-info h3 { font-size: 1.8rem; margin-bottom: 1rem; }
 .contact-info p { color: var(--subtitle-color); margin-bottom: 2rem; line-height: 1.6; }
 .contact-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.contact-item svg { color: var(--accent-orange); font-size: 1.5rem; }
+.contact-item svg { color: var(--primary-color); font-size: 1.5rem; }
 .contact-item a { color: var(--subtitle-color); text-decoration: none; font-size: 1rem; transition: color 0.3s ease; }
-.contact-item a:hover { color: var(--accent-orange); }
+.contact-item a:hover { color: var(--primary-color); }
 .contact-form input, .contact-form textarea {
   width: 100%; padding: 0.8rem 1rem; margin-bottom: 1rem; border-radius: 5px; border: 1px solid var(--border-color);
   background-color: var(--card-background); color: var(--text-color); font-size: 1rem; font-family: inherit;
 }
-.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent-orange); }
+.contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-color); }
 .contact-form textarea { resize: vertical; min-height: 120px; }
 .contact-form button { width: 100%; }
 .thank-you-message {
   display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
   height: 100%; min-height: 250px; padding: 1rem;
 }
-.thank-you-message h3 { color: var(--accent-orange); font-size: 1.8rem; margin-bottom: 1rem; }
+.thank-you-message h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 1rem; }
 .thank-you-message p { color: var(--subtitle-color); line-height: 1.6; }
 
 @media (max-width: 992px) {
   .home-container { padding: 0 1.5rem; }
 
-  /* === PERBAIKAN BAGIAN HERO UNTUK MOBILE === */
   .hero {
     min-height: auto;
     padding: 4rem 0;
-    /* Menghapus flex-direction dan gap dari sini karena akan diatur di wrapper */
   }
   
-  /* Menargetkan wrapper yang benar untuk mengubah arah flex */
   .hero .section-content-wrapper {
     flex-direction: column-reverse;
     gap: 3rem;
   }
 
   .hero-content {
-    align-items: center; /* Memastikan konten (judul, subjudul, tombol) rata tengah */
-    text-align: center; /* Memastikan teks rata tengah */
+    align-items: center;
+    text-align: center;
     max-width: 100%;
   }
 
@@ -570,7 +569,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* === PERBAIKAN LANJUTAN HERO UNTUK LAYAR LEBIH KECIL === */
   .hero {
     padding: 3rem 1rem;
   }
@@ -578,13 +576,12 @@ body {
     gap: 2rem;
   }
   .hero-title {
-    font-size: 2.0rem; /* DIKECILKAN DARI 2.2rem */
+    font-size: 2.0rem;
   }
   .hero-subtitle {
     font-size: 1.1rem;
     max-width: 100%;
   }
-  /* === AKHIR PERBAIKAN HERO === */
 
   .pricing-grid { 
     grid-template-columns: 1fr; 
@@ -593,7 +590,7 @@ body {
   }
   .card-highlight { 
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(234, 83, 41, 0.3);
+    box-shadow: 0 0 20px rgba(109, 42, 39, 0.15);
   }
   .pricing-card { max-width: 100%; padding: 2rem; }
 
@@ -629,7 +626,7 @@ body {
 
 @media (max-width: 600px) {
   .hero-title {
-    font-size: 1.9rem; /* DIKECILKAN DARI 2.8rem (YANG TIDAK LOGIS) AGAR LEBIH KECIL DARI UKURAN 768px */
+    font-size: 1.9rem;
   }
   .hero-subtitle {
     font-size: 1.1rem;

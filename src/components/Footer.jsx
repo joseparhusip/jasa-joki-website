@@ -1,4 +1,3 @@
-// src/components/Footer.jsx
 import React, { useState, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaPlus, FaInstagram, FaShare, FaPaperPlane } from 'react-icons/fa';
 import '../styles/NavbarFooter.css';
@@ -9,14 +8,11 @@ function Footer() {
   const [analyticsConsent, setAnalyticsConsent] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState('');
 
-  // Logika Cookie: Cek consent saat komponen dimuat
   useEffect(() => {
     const consentGiven = localStorage.getItem('cookieConsent');
-    // Tampilkan pop-up jika belum ada consent
     if (!consentGiven) {
       setShowCookiePopup(true);
     }
-    // Jika consent sudah ada, ambil nilai analytics
     const storedAnalytics = localStorage.getItem('analyticsConsent');
     if (storedAnalytics !== null) {
       setAnalyticsConsent(storedAnalytics === 'true');
@@ -24,28 +20,23 @@ function Footer() {
   }, []);
 
   const handleAcceptCookies = () => {
-    // Simpan consent dan preferensi analytics
     localStorage.setItem('cookieConsent', 'true');
     localStorage.setItem('analyticsConsent', analyticsConsent.toString());
     setShowCookiePopup(false);
-    // Tambahkan logika untuk mengaktifkan/memuat script analitik di sini
-    console.log(`Cookie Accepted. Analytics: ${analyticsConsent}`);
   };
 
   const handleDeclineCookies = () => {
-    // Simpan consent, nonaktifkan analytics
-    setAnalyticsConsent(false); // Set state analytics ke false
+    setAnalyticsConsent(false);
     localStorage.setItem('cookieConsent', 'true');
     localStorage.setItem('analyticsConsent', 'false');
     setShowCookiePopup(false);
-    console.log('Cookie Declined. Analytics: false');
   };
   
   const handleShare = async () => {
     try {
       await navigator.share({
-        title: 'Youth Technology Creation',
-        text: 'Lihat portofolio dan layanan dari Youth Technology Creation!',
+        title: 'Mindhera Tech',
+        text: 'Lihat portofolio dan layanan dari Mindhera Tech!',
         url: window.location.href,
       });
     } catch (error) {
@@ -64,15 +55,11 @@ function Footer() {
 
   return (
     <>
-      {/* ================================================= */}
-      {/* ===== DESAIN FOOTER BARU YANG DIPERLUAS ========= */}
-      {/* ================================================= */}
       <footer className="footer-new">
         <div className="footer-container">
-          {/* Bagian Atas: Logo dan Newsletter */}
           <div className="footer-top">
             <div className="footer-brand">
-              <h3>Youth Technology Creation</h3>
+              <h3>Mindhera Tech</h3>
               <p>Solusi digital inovatif untuk mendorong pertumbuhan bisnis Anda.</p>
             </div>
             <div className="footer-newsletter">
@@ -91,7 +78,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Bagian Tengah: Kolom Tautan */}
           <div className="footer-main">
             <div className="footer-column">
               <h4>Layanan</h4>
@@ -122,7 +108,8 @@ function Footer() {
             <div className="footer-column">
               <h4>Hubungi Kami</h4>
               <p>Bandung, Jawa Barat, Indonesia</p>
-              <p><a href="mailto:kontak@youth-tech.id">kontak@youth-tech.id</a></p>
+              {/* Menggunakan email yang konsisten dengan bagian sosial media */}
+              <p><a href="mailto:joseparhusip7@gmail.com">joseparhusip7@gmail.com</a></p>
               <div className="footer-socials-new">
                 <a href="https://github.com/joseparhusip" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
                 <a href="https://www.linkedin.com/in/joseparhusip/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
@@ -132,14 +119,12 @@ function Footer() {
             </div>
           </div>
 
-          {/* Bagian Bawah: Copyright */}
           <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Youth Technology Creation. All Rights Reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Mindhera Tech. All Rights Reserved.</p>
           </div>
         </div>
       </footer>
 
-      {/* Floating Action Button (FAB) */}
       <div className={`fab-container ${isFabOpen ? 'active' : ''}`}>
         <div className="fab-actions">
           <a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="fab-action" aria-label="WhatsApp"><FaWhatsapp /></a>
@@ -149,14 +134,12 @@ function Footer() {
         <button className="fab" onClick={() => setIsFabOpen(!isFabOpen)} aria-label="Toggle Actions"><FaPlus /></button>
       </div>
 
-      {/* Cookie Pop-up */}
       {showCookiePopup && (
         <div className="cookie-overlay">
           <div className="cookie-popup">
             <h3>Kami Menghargai Privasi Anda</h3>
             <p className="cookie-text">Situs ini menggunakan <strong>cookie</strong> esensial untuk fungsi dasar. Kami juga ingin memakai <strong>cookie</strong> analitik opsional untuk membantu meningkatkan pengalaman Anda.</p>
             <div className="cookie-options">
-              {/* Necessary Cookies (Wajib & Disabled) */}
               <div className="cookie-option">
                 <input type="checkbox" id="necessary" checked disabled />
                 <label htmlFor="necessary">
@@ -164,7 +147,6 @@ function Footer() {
                   <small>Penting untuk fungsionalitas inti situs.</small>
                 </label>
               </div>
-              {/* Analytics Cookies (Opsional & Dapat Diubah) */}
               <div className="cookie-option">
                 <input 
                   type="checkbox" 
@@ -178,7 +160,6 @@ function Footer() {
                 </label>
               </div>
             </div>
-            {/* Tombol Aksi */}
             <div className="cookie-buttons">
               <button onClick={handleDeclineCookies} className="cookie-button decline">Decline</button>
               <button onClick={handleAcceptCookies} className="cookie-button accept">Accept</button>

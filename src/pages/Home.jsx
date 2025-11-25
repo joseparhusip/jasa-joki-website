@@ -1,47 +1,50 @@
 import React, { useState, useEffect } from 'react';
-// --- PENAMBAHAN IKON BARU DARI REACT-ICONS ---
-import { FaEnvelope, FaWhatsapp, FaGithub, FaLinkedin, FaCheckCircle, FaLaptopCode, FaShoppingCart, FaRocket, FaChevronDown } from 'react-icons/fa';
-import '../styles/Home.css';
-import heroImage from '../assets/images/carousel-1.png';
+// --- REACT ICONS ---
+import { 
+  FaEnvelope, FaWhatsapp, FaLinkedin, FaCheckCircle, 
+  FaLaptopCode, FaShoppingCart, FaRocket, FaChevronDown, FaCode
+} from 'react-icons/fa';
 
-// --- GAMBAR PORTOFOLIO DI-IMPORT (SET TO NULL) ---
+// --- STYLES ---
+import '../styles/Home.css';
+
+// --- ASSETS ---
+import heroImage from '../assets/images/carousel-1.png';
+import imgOrang from '../assets/images/logo/img-orang.png';
+import imgHp from '../assets/images/logo/img-hp.png';
+
+// --- PLACEHOLDERS ---
 const portfolioTrivo = null;
 const portfolioTrivo1 = null;
 const portfolioDashboard = null;
 const portfolioEcommerce = null;
-import imgOrang from '../assets/images/logo/img-orang.png';
-
-// --- PENAMBAHAN IMPORT GAMBAR HP BARU ---
-import imgHp from '../assets/images/logo/img-hp.png';
-
-// --- GAMBAR BARU UNTUK TESTIMONIAL (DIUBAH MENJADI null UNTUK MENGHINDARI ERROR RESOLVE PATH) ---
 const imgJeremy = null;
 const imgRandom1 = null;
 const imgRandom2 = null;
 
-// --- DATA TESTIMONI BARU ---
+// --- DATA: TESTIMONIAL ---
 const testimonialData = [
   {
-    quote: "Youth Technology Creation benar-benar mengubah cara bisnis kami beroperasi. Website yang mereka bangun membuat kami lebih independen dan berhasil mendatangkan lebih banyak customer.",
-    name: "Mr. Jeremy Rusli",
+    quote: "Mindhera Tech benar-benar mengubah cara bisnis kami beroperasi. Website yang mereka bangun membuat kami lebih independen dan berhasil mendatangkan lebih banyak customer.",
+    name: "Alia Mega Putri",
     title: "Owner of Eaton Indonesia",
     image: imgJeremy,
   },
   {
     quote: "Dengan dashboard admin yang intuitif, pengelolaan website menjadi sangat efisien. Fitur SEO pada setiap halaman juga sangat membantu kami mendapatkan peringkat lebih baik di Google.",
-    name: "L.tru Studio",
+    name: "Ravendiartha Muclas Aldino",
     title: "CEO L.tru Studio",
     image: imgRandom1,
   },
   {
     quote: "Kualitas aplikasi yang dikerjakan sangat memuaskan, desainnya elegan dan modern. Komunikasi selama proses pengerjaan juga sangat lancar dan profesional.",
-    name: "Rh. Studio Arsitek",
+    name: "Sri Nuryani Pujiastuti",
     title: "Owner Rh. Studio Arsitek",
     image: imgRandom2,
   },
 ];
 
-// --- DATA PORTOFOLIO BARU UNTUK ANIMASI ---
+// --- DATA: PORTFOLIO ---
 const portfolioData = [
   {
     title: "Website E-commerce Fesyen",
@@ -64,41 +67,36 @@ const portfolioData = [
   }
 ];
 
-// --- DATA BARU UNTUK FAQ SECTION ---
+// --- DATA: FAQ ---
 const faqData = [
     {
         question: "Apa saja layanan yang ditawarkan?",
-        answer: "Kami di Youth Technology Creation fokus pada tiga pilar utama: 1) Pembuatan Website & Aplikasi Perusahaan untuk profil profesional, 2) Solusi E-commerce lengkap untuk bisnis online Anda, dan 3) Desain Landing Page yang dioptimalkan untuk marketing dan konversi tinggi."
+        answer: "Kami fokus pada 4 layanan utama sesuai kebutuhan Anda: 1) UI/UX Design, 2) Pembuatan Landing Page, 3) Website Company Profile, dan 4) Joki Website (Tugas/Skripsi)."
     },
     {
         question: "Berapa lama waktu pengerjaan proyek?",
-        answer: "Durasi proyek sangat bervariasi tergantung kompleksitas. Rata-rata, sebuah landing page memakan waktu 1-2 minggu, website company profile sekitar 3-5 minggu, dan aplikasi custom bisa memakan waktu beberapa bulan. Kami akan memberikan estimasi timeline yang lebih akurat setelah sesi konsultasi awal."
+        answer: "Durasi proyek bervariasi. Landing page bisa selesai dalam 3-5 hari, Company Profile 1-2 minggu, dan Joki Website tergantung kompleksitas fitur yang diminta."
     },
     {
-        question: "Berapa kali revisi yang bisa saya dapatkan?",
-        answer: "Kami mengutamakan kepuasan klien. Paket kami umumnya mencakup 2-3 kali sesi revisi mayor pada tahap desain dan pengembangan. Namun, kami fleksibel untuk penyesuaian minor selama proses pengerjaan untuk memastikan hasil akhir sesuai dengan visi Anda."
+        question: "Apakah harga Joki Website bisa nego?",
+        answer: "Harga Joki Website kami mulai dari 500rb hingga 1.5jt tergantung tingkat kesulitan dan deadline. Silahkan konsultasikan detail tugas Anda untuk penawaran terbaik."
     }
 ];
 
-
 function Home() {
-  // State untuk form kontak bawah
+  // --- STATE MANAGEMENT ---
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-
-  // State untuk accordion FAQ
   const [openFaq, setOpenFaq] = useState(null);
-
-  // === STATE BARU UNTUK FORM PROFESIONAL ===
+  
+  // State Quick Form
   const [quickFormSubmitted, setQuickFormSubmitted] = useState(false);
   const [quickFormData, setQuickFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: ''
+    name: '', email: '', phone: '', service: ''
   });
   const [quickFormErrors, setQuickFormErrors] = useState({});
 
+  // --- EFFECT: ANIMATION ON SCROLL ---
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -116,7 +114,7 @@ function Home() {
     };
   }, []);
 
-  // Handler untuk form kontak bawah
+  // --- HANDLERS ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -132,16 +130,11 @@ function Home() {
     }
   };
 
-  // Handler untuk FAQ
   const toggleFaq = (index) => {
-    if (openFaq === index) {
-        setOpenFaq(null);
-    } else {
-        setOpenFaq(index);
-    }
+    setOpenFaq(openFaq === index ? null : index);
   };
 
-  // === HANDLER BARU UNTUK FORM PROFESIONAL ===
+  // Quick Form Handlers
   const handleQuickInputChange = (e) => {
     const { name, value } = e.target;
     setQuickFormData(prev => ({ ...prev, [name]: value }));
@@ -167,14 +160,14 @@ function Home() {
     }
   };
 
-
   return (
     <div className="home-container">
-      {/* SECTION HERO */}
+      
+      {/* === SECTION HERO === */}
       <section id="home" className="hero">
         <div className="section-content-wrapper" style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4rem', width: '100%', maxWidth: '1100px', margin: '0 auto'}}>
           <div className="hero-image-container">
-            <img src={heroImage} alt="Youth Technology Creation - Vendor Website & Aplikasi" className="hero-image"/>
+            <img src={heroImage} alt="Mindhera Tech - Digital Solutions" className="hero-image"/>
             <span className="bubble b1"></span>
             <span className="bubble b2"></span>
             <span className="bubble b3"></span>
@@ -182,19 +175,24 @@ function Home() {
             <span className="bubble b5"></span>
           </div>
           <div className="hero-content">
-            <h1 className="hero-title"><span className="highlight">Youth Technology</span> Creation</h1>
-            <p className="hero-subtitle">Wujudkan Visi Digital Anda. Kami adalah vendor pengembangan website dan aplikasi custom untuk segala kebutuhan bisnis Anda.</p>
+            <h1 className="hero-title">
+              <span className="highlight">Mindhera</span> Tech
+            </h1>
+            <p className="hero-subtitle">
+              Solusi digital terpercaya untuk Jasa Website, UI/UX, dan Joki Tugas Coding. 
+              Kami membantu kebutuhan digital Anda dengan harga terjangkau dan kualitas profesional.
+            </p>
             <a href="#cta" className="hero-button">Mulai Proyek</a>
           </div>
         </div>
       </section>
 
-      {/* === KODE SECTION BARU: FORM WEBSITE PROFESIONAL === */}
+      {/* === SECTION: QUICK FORM === */}
       <section id="quick-form" className="quick-form-section hidden-section">
         <div className="section-content-wrapper">
           <h2 className="quick-form-title">
-            MAU BUAT WEBSITE PROFESIONAL?
-            <span>silahkan isi Form di bawah ini!</span>
+            BUTUH WEBSITE ATAU JOKI TUGAS?
+            <span>Silahkan isi Form di bawah ini!</span>
           </h2>
           <div className="quick-form-container">
             {quickFormSubmitted ? (
@@ -219,12 +217,11 @@ function Home() {
                   </div>
                   <div className="form-group">
                     <select name="service" value={quickFormData.service} onChange={handleQuickInputChange}>
-                      <option value="" disabled>--Pilih Pertanyaanmu--</option>
-                      <option value="Jasa Website">Jasa Website</option>
-                      <option value="Jasa Aplikasi">Jasa Aplikasi</option>
-                      <option value="Jasa Landing Page">Jasa Landing Page</option>
-                      <option value="Jasa Web E-commerce">Jasa Web E-commerce</option>
-                      <option value="Jasa Desain Figma">Jasa Desain Figma</option>
+                      <option value="" disabled>--Pilih Layanan--</option>
+                      <option value="UI/UX Design">Jasa UI/UX (Landing Page/Web)</option>
+                      <option value="Company Profile">Jasa Company Profile</option>
+                      <option value="Landing Page">Jasa Landing Page</option>
+                      <option value="Joki Website">Jasa Joki Website (Tugas/Skripsi)</option>
                     </select>
                     {quickFormErrors.service && <p className="error-message">{quickFormErrors.service}</p>}
                   </div>
@@ -237,42 +234,38 @@ function Home() {
           </div>
         </div>
       </section>
-      {/* === AKHIR DARI SECTION BARU === */}
 
-      {/* SECTION SERVICES (YANG DIPERBAIKI) */}
+      {/* === SECTION: SERVICES === */}
       <section id="services" className="services hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Layanan & Solusi Digital Kami</h2>
           <div className="services-grid">
-            
-            <div className="service-card">
-              <div className="service-icon"><FaLaptopCode /></div>
-              <h3>Website & Aplikasi Perusahaan</h3>
-              <p>Tampilkan profil profesional bisnis Anda dengan desain elegan, modern, dan fungsional di semua platform.</p>
-            </div>
-            
-            <div className="service-card">
-              <div className="service-icon"><FaShoppingCart /></div>
-              <h3>Solusi E-commerce</h3>
-              <p>Platform lengkap untuk bisnis online Anda, mulai dari toko online sederhana hingga marketplace kompleks.</p>
-            </div>
-            
             <div className="service-card">
               <div className="service-icon"><FaRocket /></div>
-              <h3>Landing Page & Campaign</h3>
-              <p>Halaman arahan yang dioptimalkan untuk marketing, peluncuran produk, dan konversi penjualan tinggi.</p>
+              <h3>UI/UX Design</h3>
+              <p>Desain Landing Page mulai dari 300rb dan Web Design Komplit mulai dari 800rb dengan tampilan modern.</p>
             </div>
-
+            <div className="service-card">
+              <div className="service-icon"><FaLaptopCode /></div>
+              <h3>Company Profile</h3>
+              <p>Website profil perusahaan profesional dengan harga terjangkau (600rb - 1jt) untuk meningkatkan kredibilitas.</p>
+            </div>
+            <div className="service-card">
+              <div className="service-icon"><FaCode /></div>
+              <h3>Joki Website</h3>
+              <p>Bantuan pengerjaan tugas coding atau website skripsi (500rb - 1.5jt). Aman, cepat, dan include revisi.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* === SECTION PORTFOLIO DENGAN STRUKTUR BARU UNTUK ANIMASI === */}
+      {/* === SECTION: PORTFOLIO === */}
       <section id="portfolio" className="portfolio hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Portofolio Proyek Kami</h2>
           <div className="portfolio-scroller">
             <div className="portfolio-track">
+              {/* Render Portfolio Loop 1 */}
               {portfolioData.map((item, index) => (
                 <div className="portfolio-item" key={`item-${index}`}>
                   {item.type === 'single' && item.image && <img src={item.image} alt={item.title} />}
@@ -288,6 +281,7 @@ function Home() {
                   </div>
                 </div>
               ))}
+              {/* Render Portfolio Loop 2 (For Marquee Effect) */}
               {portfolioData.map((item, index) => (
                 <div className="portfolio-item" key={`duplicate-${index}`}>
                   {item.type === 'single' && item.image && <img src={item.image} alt={item.title} />}
@@ -308,53 +302,62 @@ function Home() {
         </div>
       </section>
       
-      {/* SECTION WHY US (YANG DIUBAH) */}
+      {/* === SECTION: WHY US === */}
       <section id="why-us" className="why-us hidden-section">
         <div className="section-content-wrapper">
           <div className="why-us-container">
             <div className="why-us-image-container">
-              <img src={imgHp} alt="Teknologi Terkini Youth Technology Creation" className="why-us-image"/>
+              <img src={imgHp} alt="Teknologi Mindhera Tech" className="why-us-image"/>
             </div>
             <div className="why-us-content">
               <h2 className="section-title">Mengapa Memilih Kami?</h2>
               <div className="features-grid">
-                <div className="feature-card"><h4>🚀 Teknologi Terkini</h4><p>Kami menggunakan stack teknologi terbaru seperti React, Next.js, Flutter, dan lainnya untuk performa terbaik.</p></div>
-                <div className="feature-card"><h4>🎨 Desain Kustom & Responsif</h4><p>Setiap produk didesain unik sesuai brand Anda dan dapat diakses sempurna di semua perangkat.</p></div>
-                <div className="feature-card"><h4>⏱️ Pengerjaan Cepat & Terstruktur</h4><p>Proses kerja yang efisien dan transparan memastikan proyek Anda selesai tepat waktu sesuai timeline.</p></div>
+                <div className="feature-card">
+                  <h4>💰 Harga Bersahabat</h4>
+                  <p>Solusi digital dengan harga mahasiswa namun kualitas tetap profesional dan memuaskan.</p>
+                </div>
+                <div className="feature-card">
+                  <h4>🎨 Desain Modern</h4>
+                  <p>Tampilan UI/UX yang kekinian dan responsif di semua perangkat (HP, Tablet, Laptop).</p>
+                </div>
+                <div className="feature-card">
+                  <h4>⚡ Pengerjaan Cepat</h4>
+                  <p>Deadline mepet? Tenang, kami siap membantu mengerjakan proyek Anda tepat waktu.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION PROCESS */}
+      {/* === SECTION: PROCESS === */}
       <section id="process" className="process hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Proses Kerja Kami</h2>
           <div className="process-timeline">
-            <div className="process-step"><div className="process-number">1</div><h3>Konsultasi & Perencanaan</h3><p>Kami mendiskusikan ide dan kebutuhan Anda untuk merumuskan strategi produk terbaik.</p></div>
-            <div className="process-step"><div className="process-number">2</div><h3>Desain UI/UX</h3><p>Membuat mockup dan prototipe desain yang fungsional dan menarik secara visual.</p></div>
-            <div className="process-step"><div className="process-number">3</div><h3>Pengembangan (Coding)</h3><p>Proses mengubah desain menjadi kode yang bersih, efisien, dan scalable.</p></div>
-            <div className="process-step"><div className="process-number">4</div><h3>Peluncuran & Maintenance</h3><p>Produk Anda siap online! Kami juga menyediakan dukungan penuh setelah peluncuran.</p></div>
+            <div className="process-step"><div className="process-number">1</div><h3>Konsultasi</h3><p>Diskusi kebutuhan website atau detail tugas joki Anda.</p></div>
+            <div className="process-step"><div className="process-number">2</div><h3>Deal Harga</h3><p>Kesepakatan harga dan estimasi waktu pengerjaan.</p></div>
+            <div className="process-step"><div className="process-number">3</div><h3>Pengerjaan</h3><p>Proses coding dan desain dilakukan dengan teliti.</p></div>
+            <div className="process-step"><div className="process-number">4</div><h3>Serah Terima</h3><p>File dikirim, demo aplikasi, dan revisi jika diperlukan.</p></div>
           </div>
         </div>
       </section>
       
-      {/* SECTION CTA */}
+      {/* === SECTION: CTA === */}
       <section id="cta" className="cta hidden-section">
         <div className="section-content-wrapper">
           <div className="cta-container">
-            <div className="cta-image-container"><img src={imgOrang} alt="Siap Memulai Proyek" className="cta-image"/></div>
+            <div className="cta-image-container"><img src={imgOrang} alt="Hubungi Mindhera Tech" className="cta-image"/></div>
             <div className="cta-content">
-              <h2 className="section-title">Siap Membangun Proyek Digital Anda?</h2>
-              <p className="cta-subtitle">Jangan ragu untuk berdiskusi dengan tim kami. Konsultasi gratis!</p>
-              <a href="#contact" className="hero-button">Hubungi Kami</a>
+              <h2 className="section-title">Butuh Bantuan Coding?</h2>
+              <p className="cta-subtitle">Jangan ragu untuk tanya-tanya dulu. Admin ramah dan fast respon!</p>
+              <a href="#contact" className="hero-button">Hubungi Sekarang</a>
             </div>
           </div>
         </div>
       </section>
       
-      {/* SECTION TESTIMONIALS */}
+      {/* === SECTION: TESTIMONIALS === */}
       <section id="testimonials" className="testimonials hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Testimoni Klien</h2>
@@ -372,45 +375,69 @@ function Home() {
         </div>
       </section>
       
-      {/* SECTION PRICING */}
+      {/* === SECTION: PRICING === */}
       <section id="pricing" className="pricing-section hidden-section">
         <div className="section-content-wrapper">
-          <h2 className="pricing-title">Dapatkan Harga Spesial Dari Yang Terbaik</h2>
-          <p className="pricing-subtitle">Pilih paket yang paling sesuai dengan kebutuhan bisnis Anda.</p>
+          <h2 className="pricing-title">Daftar Harga Vendor</h2>
+          <p className="pricing-subtitle">Pilih paket sesuai budget dan kebutuhan Anda.</p>
           <div className="pricing-grid">
+            
+            {/* ITEM 1: LANDING PAGE */}
             <div className="pricing-card">
-              <div className="plan-header"><h3 className="plan-name">Website Landing Page</h3><p className="plan-description">Tampilkan landing page impian dengan desain yang responsif dan siap menarik perhatian pelanggan Anda.</p></div>
-              <p className="price-old">Rp. 1.650.000</p><p className="price-new">Rp. 1.250.000</p>
-              <ul className="plan-features"><li><FaCheckCircle /> 1 Halaman Utama</li><li><FaCheckCircle /> Gratis Hosting 2GB</li><li><FaCheckCircle /> Gratis Domain .com (Tahun Pertama)</li></ul>
-              <div className="price-button-container"><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="hero-button">Hubungi Sekarang</a></div>
+              <div className="plan-header"><h3 className="plan-name">Landing Page</h3><p className="plan-description">Halaman tunggal untuk promosi produk atau event.</p></div>
+              <p className="price-old">Rp. 750.000</p><p className="price-new">Rp. 500.000</p>
+              <ul className="plan-features">
+                <li><FaCheckCircle /> One Page Website</li>
+                <li><FaCheckCircle /> Responsive Mobile</li>
+                <li><FaCheckCircle /> Revisi Minor</li>
+              </ul>
+              <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Pesan Sekarang</a></div>
             </div>
+
+            {/* ITEM 2: COMPANY PROFILE (HIGHLIGHT) */}
             <div className="pricing-card card-highlight">
-              <div className="plan-header"><h3 className="plan-name">Website Company Profile</h3><p className="plan-description">Solusi lengkap dan pilihan serius untuk membangun citra profesional perusahaan Anda di dunia digital.</p></div>
-              <p className="price-old">Rp. 7.000.000</p><p className="price-new">Rp. 4.450.000</p>
-              <ul className="plan-features"><li><FaCheckCircle /> Halaman Tidak Terbatas</li><li><FaCheckCircle /> Gratis Hosting 5GB</li><li><FaCheckCircle /> Gratis Domain .com (Tahun Pertama)</li></ul>
-              <div className="price-button-container"><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="hero-button">Hubungi Sekarang</a></div>
+              <div className="plan-header"><h3 className="plan-name">Company Profile</h3><p className="plan-description">Website profil bisnis lengkap agar terlihat profesional.</p></div>
+              <p className="price-old">Rp. 1.500.000</p><p className="price-new">600K - 1 Juta</p>
+              <ul className="plan-features">
+                <li><FaCheckCircle /> Up to 5 Halaman</li>
+                <li><FaCheckCircle /> Desain Premium</li>
+                <li><FaCheckCircle /> SEO Friendly Basic</li>
+              </ul>
+              <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Pesan Sekarang</a></div>
             </div>
+
+            {/* ITEM 3: UI/UX DESIGN */}
             <div className="pricing-card">
-              <div className="plan-header"><h3 className="plan-name">Website Company Profile Basic</h3><p className="plan-description">Pilihan ideal untuk bisnis yang sudah berjalan dan ingin memperluas jangkauan pasar.</p></div>
-              <p className="price-old">Rp. 3.800.000</p><p className="price-new">Rp. 2.550.000</p>
-              <ul className="plan-features"><li><FaCheckCircle /> 5 Halaman Utama</li><li><FaCheckCircle /> Gratis Hosting 3GB</li><li><FaCheckCircle /> Gratis Domain .com (Tahun Pertama)</li></ul>
-              <div className="price-button-container"><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="hero-button">Hubungi Sekarang</a></div>
+              <div className="plan-header"><h3 className="plan-name">UI/UX Design</h3><p className="plan-description">Desain tampilan website/aplikasi di Figma.</p></div>
+              <p className="price-new" style={{fontSize: '1.8rem'}}>300K - 800K</p>
+              <ul className="plan-features">
+                <li><FaCheckCircle /> Landing Page: 300K</li>
+                <li><FaCheckCircle /> Web Design: 800K</li>
+                <li><FaCheckCircle /> File Master Figma</li>
+              </ul>
+              <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Pesan Sekarang</a></div>
             </div>
           </div>
+
           <div className="secondary-pricing-grid">
-            <div className="secondary-card"><h4>Website Ecommerce & Toko Online</h4><p>Kami menyediakan solusi pembuatan aplikasi e-commerce yang dapat disesuaikan dengan kebutuhan bisnis dan skala operasi Anda.</p><div className="price-button-container"><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="hero-button">Hubungi Sekarang</a></div></div>
-            <div className="secondary-card"><h4>Aplikasi Website Custom</h4><p>Solusi custom untuk kebutuhan spesifik seperti sistem manajemen, CRM, dashboard analitik, hingga aplikasi Point of Sales (POS).</p><div className="price-button-container"><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="hero-button">Hubungi Sekarang</a></div></div>
+            {/* ITEM 4: JOKI WEBSITE */}
+            <div className="secondary-card" style={{maxWidth: '600px', border: '2px solid var(--primary-color)'}}>
+              <h4>🎓 Joki Website (Tugas/Skripsi)</h4>
+              <p>Solusi untuk mahasiswa yang butuh bantuan coding tugas akhir atau project kuliah. Include Source Code & Database.</p>
+              <h3 style={{color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1rem', fontWeight: 'bold'}}>Rp. 500.000 - 1.500.000</h3>
+              <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Konsultasi Tugas</a></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* === SECTION FAQ (BARU) === */}
+      {/* === SECTION: FAQ === */}
       <section id="faq" className="faq-section hidden-section">
         <div className="section-content-wrapper">
             <div className="faq-container">
                 <div className="faq-content">
-                    <h2 className="faq-title">Masih bingung? <br/>Tenang, kami siap membantumu</h2>
-                    <p className="faq-subtitle">Jika ada pertanyaan lain yang belum ada di sini boleh tanyakan dan konsultasikan langsung di sini.</p>
+                    <h2 className="faq-title">Masih bingung? <br/>Kami siap membantu</h2>
+                    <p className="faq-subtitle">Tanyakan apa saja seputar kebutuhan digital Anda, dan kami akan memberikan solusi terbaik.</p>
                 </div>
                 <div className="faq-accordion">
                     {faqData.map((item, index) => (
@@ -429,7 +456,7 @@ function Home() {
         </div>
       </section>
       
-      {/* SECTION CONTACT */}
+      {/* === SECTION: CONTACT === */}
       <section id="contact" className="contact hidden-section">
         <div className="section-content-wrapper">
           <h2 className="section-title">Hubungi Kami</h2>
@@ -437,11 +464,19 @@ function Home() {
           <div className="contact-container">
             <div className="contact-info">
               <h3>Informasi Kontak</h3>
-              <p>Hubungi kami melalui salah satu platform di bawah ini, atau langsung isi formulir di samping.</p>
-              <div className="contact-item"><FaEnvelope /><a href="mailto:joseparhusip7@gmail.com">joseparhusip7@gmail.com</a></div>
-              <div className="contact-item"><FaWhatsapp /><a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer">+62 812 9269 0095</a></div>
-              <div className="contact-item"><FaGithub /><a href="https://github.com/joseparhusip" target="_blank" rel="noopener noreferrer">github.com/joseparhusip</a></div>
-              <div className="contact-item"><FaLinkedin /><a href="https://www.linkedin.com/in/joseparhusip/" target="_blank" rel="noopener noreferrer">linkedin.com/in/joseparhusip</a></div>
+              <p>Mindhera Tech siap menjadi mitra digital Anda. Hubungi kami melalui:</p>
+              <div className="contact-item">
+                <FaEnvelope />
+                <a href="mailto:mindheratech@gmail.com">mindheratech@gmail.com</a>
+              </div>
+              <div className="contact-item">
+                <FaWhatsapp />
+                <a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer">+62 822-9838-5531</a>
+              </div>
+              <div className="contact-item">
+                <FaLinkedin />
+                <a href="https://www.linkedin.com/company/mindheratech/about/" target="_blank" rel="noopener noreferrer">Mindhera Tech</a>
+              </div>
             </div>
             <div className="contact-form">
               {formSubmitted ? (

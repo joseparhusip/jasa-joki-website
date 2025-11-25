@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/NavbarFooter.css';
-import siteLogo from '../assets/images/logo/logo-website.png';
-// Ikon ini sekarang kita gunakan
+import siteLogo from '../assets/images/logo/logo-mindhera-tech.png';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 function Navbar() {
@@ -41,7 +40,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-logo">
         <a href="/">
-          <img src={siteLogo} alt="Joki Mahasiswa Logo" className="site-logo" />
+          <img src={siteLogo} alt="Mindhera Tech Logo" className="site-logo" />
         </a>
       </div>
       
@@ -58,10 +57,6 @@ function Navbar() {
       
       <a href="#cta" className="nav-cta-desktop">Pesan Jasa</a>
       
-      {/* PERUBAHAN UTAMA: 
-        Mengganti div hamburger manual dengan ikon dari react-icons.
-        Ikon akan berubah antara FaBars dan FaTimes tergantung state isMenuOpen.
-      */}
       <div className="mobile-menu-icon" onClick={toggleMenu}>
         {isMenuOpen ? <FaTimes /> : <FaBars />}
       </div>
