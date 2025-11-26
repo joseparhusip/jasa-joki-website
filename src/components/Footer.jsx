@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaPlus, FaInstagram, FaShare, FaPaperPlane } from 'react-icons/fa';
+// Hapus FaGithub dari import karena tidak dipakai
+import { FaLinkedin, FaWhatsapp, FaEnvelope, FaPlus, FaInstagram, FaShare, FaPaperPlane } from 'react-icons/fa';
 import '../styles/NavbarFooter.css';
 
 function Footer() {
@@ -108,13 +109,17 @@ function Footer() {
             <div className="footer-column">
               <h4>Hubungi Kami</h4>
               <p>Bandung, Jawa Barat, Indonesia</p>
-              {/* Menggunakan email yang konsisten dengan bagian sosial media */}
-              <p><a href="mailto:joseparhusip7@gmail.com">joseparhusip7@gmail.com</a></p>
+              {/* Email disesuaikan dengan Home.jsx */}
+              <p><a href="mailto:mindheratech@gmail.com">mindheratech@gmail.com</a></p>
+              
               <div className="footer-socials-new">
-                <a href="https://github.com/joseparhusip" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
-                <a href="https://www.linkedin.com/in/joseparhusip/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
-                <a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
-                <a href="mailto:joseparhusip7@gmail.com" aria-label="Email"><FaEnvelope /></a>
+                {/* LinkedIn disesuaikan dengan Home.jsx */}
+                <a href="https://www.linkedin.com/company/mindheratech/about/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedin /></a>
+                
+                {/* WhatsApp disesuaikan dengan Home.jsx */}
+                <a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
+                
+                <a href="mailto:mindheratech@gmail.com" aria-label="Email"><FaEnvelope /></a>
               </div>
             </div>
           </div>
@@ -127,7 +132,8 @@ function Footer() {
 
       <div className={`fab-container ${isFabOpen ? 'active' : ''}`}>
         <div className="fab-actions">
-          <a href="https://wa.me/6281292690095" target="_blank" rel="noopener noreferrer" className="fab-action" aria-label="WhatsApp"><FaWhatsapp /></a>
+          {/* WhatsApp Floating Button juga disamakan */}
+          <a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="fab-action" aria-label="WhatsApp"><FaWhatsapp /></a>
           <a href="https://www.instagram.com/joseparhusip_?igsh=a2VnbWF2b2x0dXRk" target="_blank" rel="noopener noreferrer" className="fab-action" aria-label="Instagram"><FaInstagram /></a>
           <button onClick={handleShare} className="fab-action" aria-label="Share"><FaShare /></button>
         </div>

@@ -59,7 +59,7 @@ const testimonialData = [
   },
 ];
 
-// --- DATA: PORTFOLIO (UPDATED WITH GALLERY) ---
+// --- DATA: PORTFOLIO ---
 const portfolioData = [
   {
     id: 1,
@@ -67,8 +67,8 @@ const portfolioData = [
     category: "Mobile App",
     tech: "Flutter, Firebase, Figma",
     description: "Aplikasi mobile yang responsif dengan fitur autentikasi dan manajemen data real-time.",
-    coverImage: mobile1, // Gambar utama yang muncul di card
-    gallery: [mobile1, mobile2, mobile3, mobile4] // Kumpulan gambar untuk detail modal
+    coverImage: mobile1, 
+    gallery: [mobile1, mobile2, mobile3, mobile4] 
   },
   {
     id: 2,
@@ -88,14 +88,13 @@ const portfolioData = [
     coverImage: web1,
     gallery: [web1, web2, web3, web4]
   },
-  // Dummy data project tambahan
   {
     id: 4,
     title: "Company Profile Corporate",
     category: "Web Design",
     tech: "HTML, CSS, JavaScript",
     description: "Website profil perusahaan modern untuk meningkatkan branding klien.",
-    coverImage: null, // Placeholder style akan aktif
+    coverImage: null, 
     gallery: [] 
   }
 ];
@@ -122,26 +121,22 @@ function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [openFaq, setOpenFaq] = useState(null);
   
-  // State Quick Form
   const [quickFormSubmitted, setQuickFormSubmitted] = useState(false);
   const [quickFormData, setQuickFormData] = useState({
     name: '', email: '', phone: '', service: ''
   });
   const [quickFormErrors, setQuickFormErrors] = useState({});
 
-  // --- STATE: PORTFOLIO MODAL ---
-  const [selectedProject, setSelectedProject] = useState(null); // Menyimpan project yang sedang dibuka
+  const [selectedProject, setSelectedProject] = useState(null); 
 
-  // --- REF UNTUK SCROLL ---
   const scrollRef = useRef(null);
 
-  // --- FUNGSI SCROLL PORTFOLIO ---
+  // --- FUNGSI SCROLL PORTFOLIO (Disesuaikan dengan lebar kartu baru) ---
   const scroll = (direction) => {
     const { current } = scrollRef;
     if (current) {
-      // PERUBAHAN: Lebar item (280px) + Gap (1.5rem/24px) = skitar 304-305px.
-      const scrollAmount = 305; 
-      
+      // Geser sesuai lebar kartu + gap (480px + 32px gap = approx 512px)
+      const scrollAmount = 510; 
       if (direction === 'left') {
         current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
@@ -150,7 +145,6 @@ function Home() {
     }
   };
 
-  // --- EFFECT: ANIMATION ON SCROLL ---
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -168,7 +162,6 @@ function Home() {
     };
   }, []);
 
-  // --- HANDLERS UTAMA ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -188,18 +181,16 @@ function Home() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // --- HANDLERS PORTFOLIO MODAL ---
   const openProjectDetail = (project) => {
     setSelectedProject(project);
-    document.body.style.overflow = 'hidden'; // Matikan scroll body saat modal buka
+    document.body.style.overflow = 'hidden'; 
   };
 
   const closeProjectDetail = () => {
     setSelectedProject(null);
-    document.body.style.overflow = 'auto'; // Hidupkan scroll body kembali
+    document.body.style.overflow = 'auto'; 
   };
 
-  // --- HANDLERS QUICK FORM ---
   const handleQuickInputChange = (e) => {
     const { name, value } = e.target;
     setQuickFormData(prev => ({ ...prev, [name]: value }));
@@ -324,50 +315,40 @@ function Home() {
         </div>
       </section>
 
-      {/* === SECTION: PORTFOLIO (MODIFIED WITH MODAL) === */}
+      {/* === SECTION: PORTFOLIO === */}
       <section id="portfolio" className="portfolio hidden-section">
-        <div className="section-content-wrapper">
+        {/* Style inline ini untuk memastikan wrapper mengambil lebar penuh jika perlu */}
+        <div className="section-content-wrapper" style={{maxWidth: '100%', paddingLeft: '1rem', paddingRight: '1rem'}}>
           <h2 className="section-title">Portofolio Proyek Kami</h2>
           
           <div className="portfolio-slider-container">
-            {/* Tombol Kiri */}
             <button className="nav-btn prev-btn" onClick={() => scroll('left')}>
               <FaChevronLeft />
             </button>
 
-            {/* Container Scroll */}
             <div className="portfolio-scroller" ref={scrollRef}>
               <div className="portfolio-track">
-                
                 {portfolioData.map((item) => (
-                  // Tambahkan onClick ke item untuk memicu Modal
                   <div 
                     className="portfolio-item" 
                     key={item.id}
                     onClick={() => openProjectDetail(item)}
                   >
-                    {/* Render Gambar Cover */}
                     {item.coverImage ? (
                       <img src={item.coverImage} alt={item.title} />
                     ) : (
                       <div className="placeholder-img">Coming Soon</div>
                     )}
-                    
-                    {/* Indikator Klik */}
                     <div className="click-indicator">Klik untuk Detail</div>
-
-                    {/* Overlay (Hover State) */}
                     <div className="portfolio-overlay">
                       <h3>{item.title}</h3>
                       <p>{item.tech}</p>
                     </div>
                   </div>
                 ))}
-
               </div>
             </div>
 
-            {/* Tombol Kanan */}
             <button className="nav-btn next-btn" onClick={() => scroll('right')}>
               <FaChevronRight />
             </button>
@@ -378,12 +359,10 @@ function Home() {
       {/* === MODAL POPUP PORTFOLIO === */}
       {selectedProject && (
         <div className="modal-overlay" onClick={closeProjectDetail}>
-          {/* stopPropagation agar klik di dalam konten tidak menutup modal */}
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal-btn" onClick={closeProjectDetail}>
               <FaTimes />
             </button>
-            
             <div className="modal-header">
               <h2 className="modal-title">{selectedProject.title}</h2>
               <div className="modal-tech">
@@ -393,7 +372,6 @@ function Home() {
                 {selectedProject.description}
               </p>
             </div>
-
             <h4 style={{color: 'var(--subtitle-color)'}}>Gallery Preview:</h4>
             <div className="modal-gallery-grid">
               {selectedProject.gallery && selectedProject.gallery.length > 0 ? (
@@ -406,7 +384,6 @@ function Home() {
                 <p>Tidak ada gambar tambahan untuk proyek ini.</p>
               )}
             </div>
-
           </div>
         </div>
       )}
@@ -533,7 +510,9 @@ function Home() {
             <div className="secondary-card" style={{maxWidth: '600px', border: '2px solid var(--primary-color)'}}>
               <h4>xJoki Website (Tugas/Skripsi)</h4>
               <p>Solusi untuk mahasiswa yang butuh bantuan coding tugas akhir atau project kuliah. Include Source Code & Database.</p>
-              <h3 style={{color: 'var(--primary-color)', fontSize: '2rem', marginBottom: '1rem', fontWeight: 'bold'}}>Rp. 500.000 - 1.500.000</h3>
+              
+              <h3 className="xjoki-price">Rp. 500.000 - 1.500.000</h3>
+              
               <div className="price-button-container"><a href="https://wa.me/6282298385531" target="_blank" rel="noopener noreferrer" className="hero-button">Konsultasi Tugas</a></div>
             </div>
           </div>

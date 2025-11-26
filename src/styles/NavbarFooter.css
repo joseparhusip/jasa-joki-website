@@ -28,24 +28,20 @@
   top: 0;
   z-index: 1000;
   font-family: 'Poppins', sans-serif;
-  /* PERUBAHAN 1: Tinggi navbar diperbesar menjadi 90px */
   height: 90px;
 }
 
-/* Wrapper untuk logo dan linknya */
 .nav-logo a { 
   text-decoration: none; 
   display: flex; 
   align-items: center; 
-  /* PERUBAHAN 2: Menambahkan background putih, padding, dan radius di belakang logo */
   background-color: #FFFFFF;
-  padding: 5px 15px; /* Memberi jarak antara logo dan batas kotak putih */
-  border-radius: 8px; /* Membuat sudut kotak putih sedikit melengkung */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Opsional: memberi sedikit bayangan agar lebih menonjol */
+  padding: 5px 15px; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
 }
 
 .site-logo { 
-  /* PERUBAHAN 3: Tinggi logo diperbesar menjadi 70px agar pas di navbar baru */
   height: 70px; 
   width: auto;
   object-fit: contain;
@@ -138,7 +134,6 @@
   }
   .nav-links {
     position: fixed; 
-    /* PERUBAHAN 4: Menyesuaikan posisi menu mobile dengan tinggi navbar baru */
     top: 90px; 
     left: 0; 
     width: 100%; 
@@ -169,7 +164,7 @@
   }
 }
 
-/* ================= FOOTER STYLES (Tidak Berubah) ================= */
+/* ================= FOOTER STYLES ================= */
 .footer-new {
   font-family: 'Poppins', sans-serif;
   background: var(--navbar-footer-gradient);
@@ -183,6 +178,7 @@
   margin: 0 auto;
 }
 
+/* Footer Top: Brand + Newsletter */
 .footer-top {
   display: flex;
   justify-content: space-between;
@@ -231,11 +227,13 @@
 .newsletter-form {
   display: flex;
   position: relative;
+  width: 100%;
 }
 
 .newsletter-form input {
   width: 100%;
   padding: 0.8rem 1rem;
+  padding-right: 50px; 
   border-radius: 5px;
   border: 1px solid var(--footer-border);
   background-color: rgba(255, 255, 255, 0.1);
@@ -269,6 +267,7 @@
   background-color: #f0f0f0;
 }
 
+/* Footer Main: Columns Links */
 .footer-main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -309,10 +308,16 @@
   color: var(--footer-text);
 }
 
+/* KHUSUS: Membuat kolom terakhir (Hubungi Kami) rata tengah di Desktop */
+.footer-column:last-child {
+  text-align: center;
+}
+
 .footer-socials-new {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* PERBAIKAN DI SINI: Mengubah flex-start menjadi center */
+  justify-content: center; 
   gap: 1.2rem;
   margin-top: 1.2rem; 
 }
@@ -340,7 +345,49 @@
   color: var(--footer-text);
 }
 
-/* ================= FAB & COOKIE STYLES (Tidak Berubah) ================= */
+/* ================= RESPONSIVE FOOTER (MOBILE) ================= */
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-newsletter {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+
+  .newsletter-form {
+    max-width: 100%;
+  }
+
+  .footer-main {
+    /* Stack columns vertically on mobile */
+    grid-template-columns: 1fr; 
+    gap: 2.5rem;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  /* Pastikan semua kolom rata tengah di mobile */
+  .footer-column {
+    text-align: center;
+  }
+
+  /* Center the social icons container on mobile */
+  .footer-socials-new {
+    justify-content: center;
+  }
+  
+  /* Reset hover padding effect on mobile */
+  .footer-column a:hover {
+    padding-left: 0;
+  }
+}
+
+/* ================= FAB & COOKIE STYLES ================= */
 .fab-container { 
   position: fixed; 
   bottom: 20px; 
@@ -542,7 +589,7 @@
     text-align: center;
   }
   .footer-column ul {
-    display: inline-block;
-    text-align: left;
+    display: block; 
+    text-align: center;
   }
 }
